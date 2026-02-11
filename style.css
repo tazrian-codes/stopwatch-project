@@ -1,0 +1,61 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins;
+  color: white;
+}
+
+body{
+  background-color: rgb(23, 23, 23);
+}
+
+.stopwatch{
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 200px auto 0;
+}
+
+.stopwatch h1{
+  font-size: 60px;
+  font-weight: 500;
+  background: linear-gradient(to bottom, #eb2f06, #fed330);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow:
+    0 0 3px rgba(235, 47, 6, 0.5),
+    0 0 3px rgba(246, 185, 59, 0.5);
+  
+}
+
+.buttons{
+  display: flex;
+  gap: 15px;
+}
+
+.buttons .toggle-btn, .reset{
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 50px;
+  cursor: pointer;
+}
+
+.toggle-btn i{
+  color: #eb2f06;
+}
+
+.reset{
+  font-size: 25px;
+}
+
+.reset i{
+  transition: color 0.1s;
+}
+
+.reset i:hover{
+  color: silver;
+}
