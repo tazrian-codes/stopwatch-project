@@ -1,54 +1,54 @@
 // DOM elements
-const timerClock = document.getElementById('timerClock');
-const toggleBtn =  document.getElementById('toggleBtn');
-const resetBtn = document.getElementById('resetBtn');
+const minsDiv = document.getElementById("mins");
+const secsDiv = document.getElementById("secs");
+const msecsDiv = document.getElementById("milliSecs");
+const startEndBtn = document.querySelector(".start-and-end-btn");
+const resetBtn = document.querySelector(".reset-btn");
 
-// variable for setInterval
-let timer = null;
+let timerID = null;
+let mins = 0;
+let secs = 0;
+let msecs = 0;
 
-// variable for toggleBtn
-let isRunning = false;
+startEndBtn.addEventListener("click", () => {
+  if (timerID !== null) {
+    clearInterval(timerID);
+    timerID = null;
+    startEndBtn.textContent = "Start";
+    startEndBtn.classList.remove("stop-btn");
+  } else {
+    timerID = setInterval(timerStart, 10);
+    startEndBtn.textContent = "Stop";
+    startEndBtn.classList.add("stop-btn");
+  }
+});
 
-let [hours, minutes, seconds] = [0, 0, 0];
+resetBtn.addEventListener("click", () => {
+  mins = 0;
+  secs = 0;
+  msecs = 0;
+  minsDiv.textContent = '00';
+  secsDiv.textContent = '00';
+  msecsDiv.textContent = '00';
+  startEndBtn.classList.remove('stop-btn');
+  startEndBtn.textContent = 'Start';
+  clearInterval(timerID);
+  timerID = null;
+})
 
-
-const stopWatch = () => {
-  seconds++;
-  if (seconds == 60) {
-    seconds = 0;
-    minutes++;
-    
-    if (minutes == 60) {
-      minutes = 0;
-      hours++;
+const timerStart = () => {
+  msecs++;
+  if (msecs === 100) {
+    msecs = 0;
+    secs++;
+    if (secs === 60) {
+      secs = 0;
+      mins++;
     }
   }
-
-  let h = hours < 10 ? '0' + hours : hours;
-  let m = minutes < 10 ? '0' + minutes : minutes;
-  let s = seconds < 10 ? '0' + seconds : seconds;
-
-  timerClock.innerHTML = h + ':' + m + ':' + s;
-};
-
-const startWatch = () => {
-  if (!isRunning) {
-    timer = setInterval(stopWatch, 1000);
-    toggleBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i>';
-    isRunning = true;
-  }
-  else{
-    clearInterval(timer);
-    toggleBtn.innerHTML = '<i class="fa-solid fa-circle-pause"></i>';
-    isRunning = false;
-  }
-  
-};
-
-const resetWatch = () => {
-  clearInterval(timer);
-  [hours, minutes, seconds] = [0, 0, 0];
-  toggleBtn.innerHTML = '<i class="fa-solid fa-circle-play"></i>';
-  timerClock.innerHTML = '00:00:00';
-  isRunning = false;
+  mins < 10 ? (minsDiv.textContent = `0${mins}`) : (minsDiv.textContent = mins);
+  secs < 10 ? (secsDiv.textContent = `0${secs}`) : (secsDiv.textContent = secs);
+  msecs < 10
+    ? (msecsDiv.textContent = `0${msecs}`)
+    : (msecsDiv.textContent = msecs);
 };
